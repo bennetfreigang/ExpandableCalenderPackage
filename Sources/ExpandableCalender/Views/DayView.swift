@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DayView: View {
     let date: Date
-    @Binding var selectedDate: Date?
+    @Binding var selectedDate: Date
     
     var body: some View {
         VStack(spacing: 12) {
@@ -39,5 +39,5 @@ struct DayView: View {
 }
 
 #Preview {
-    DayView(date: .now, selectedDate: .constant(nil))
+    DayView(date: .now, selectedDate: .constant(.now))
 }

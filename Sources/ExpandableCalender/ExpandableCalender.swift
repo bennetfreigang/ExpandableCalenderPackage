@@ -4,7 +4,7 @@
 import SwiftUI
 
 struct ExpandableCalender: View {
-    @Binding var selection: Date?
+    @Binding var selection: Date
     @State private var title: String = Calendar.monthAndYear(from: .now)
     @State private var focusedWeek: Week = .current
     @State private var calendarType: CalendarType = .week
@@ -83,7 +83,6 @@ struct ExpandableCalender: View {
                 .ignoresSafeArea()
             )
             .onChange(of: selection) { oldValue, newValue in
-                guard let newValue else { return }
                 title = Calendar.monthAndYear(from: newValue)
             }
             .gesture(

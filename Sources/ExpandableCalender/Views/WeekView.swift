@@ -12,11 +12,11 @@ struct WeekView: View {
     let dragPosition: CGFloat
     let hideDifferentMonth: Bool
     
-    @Binding var selectedDate: Date?
+    @Binding var selectedDate: Date
     
     init(
         week: Week,
-        selectedDate: Binding<Date?>,
+        selectedDate: Binding<Date>,
         dragPosition: CGFloat,
         hideDifferentMonth: Bool = false
     ) {

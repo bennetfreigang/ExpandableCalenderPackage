@@ -12,13 +12,13 @@ struct WeekCalendarView: View {
     
     @Binding var title: String
     @Binding var focused: Week
-    @Binding var selection: Date?
+    @Binding var selection: Date
     
     @State private var weeks: [Week]
     @State private var position: ScrollPosition
     @State private var calendarWidth: CGFloat = .zero
     
-    init(_ title: Binding<String>, selection: Binding<Date?>, focused: Binding<Week>, isDragging: Bool) {
+    init(_ title: Binding<String>, selection: Binding<Date>, focused: Binding<Week>, isDragging: Bool) {
         self.isDragging = isDragging
         _title = title
         _focused = focused
@@ -72,7 +72,7 @@ struct WeekCalendarView: View {
             title = Calendar.monthAndYear(from: focusedWeek.days.last!)
         }
         .onChange(of: selection) { oldValue, newValue in
-            guard let date = newValue, let week = weeks.first(where: { $0.days.contains(date) }) else { return }
+            guard let week = weeks.first(where: { $0.days.contains(newValue) }) else { return }
             focused = week
         }
     }
@@ -99,7 +99,7 @@ extension WeekCalendarView {
 #Preview {
     WeekCalendarView(
         .constant(""),
-        selection: .constant(nil),
+        selection: .constant(.now),
         focused: .constant(.current),
         isDragging: false
     )

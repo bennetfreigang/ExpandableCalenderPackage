@@ -13,10 +13,10 @@ class CalendarState: ObservableObject {
 
 struct ExpandableCalendar: ViewModifier {
     @StateObject private var calendarState = CalendarState()
-    @State var selectedDate: Date? = .now
+    @State var selection: Date = .now
     
     init(selectedDate: Binding<Date>) {
-        _selectedDate = State(initialValue: selectedDate.wrappedValue)
+        _selection = State(initialValue: selectedDate.wrappedValue)
     }
     
     func body(content: Content) -> some View {
@@ -29,7 +29,7 @@ struct ExpandableCalendar: ViewModifier {
             content
         }
         .overlay(alignment: .top) {
-            ExpandableCalender(selection: $selectedDate, calendarState: calendarState)
+            ExpandableCalender(selection: $selection, calendarState: calendarState)
         }
     }
 }
