@@ -13,6 +13,11 @@ class CalendarState: ObservableObject {
 
 struct ExpandableCalendar: ViewModifier {
     @StateObject private var calendarState = CalendarState()
+    @State var selectedDate: Date? = .now
+    
+    init(selectedDate: Binding<Date>) {
+        _selectedDate = State(initialValue: selectedDate.wrappedValue)
+    }
     
     func body(content: Content) -> some View {
         ZStack {
@@ -24,13 +29,13 @@ struct ExpandableCalendar: ViewModifier {
             content
         }
         .overlay(alignment: .top) {
-            ExpandableCalender(calendarState: calendarState)
+            ExpandableCalender(selection: $selectedDate, calendarState: calendarState)
         }
     }
 }
 
 extension View {
-    public func calendar() -> some View {
-        modifier(ExpandableCalendar())
+    public func calendar(selection: Binding<Date>) -> some View {
+        modifier(ExpandableCalendar(selectedDate: selection))
     }
 }
